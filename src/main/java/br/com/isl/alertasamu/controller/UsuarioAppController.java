@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.isl.alertasamu.dto.AlertaDTO;
 import br.com.isl.alertasamu.dto.UsuarioAppDTO;
 import br.com.isl.alertasamu.model.UsuarioApp;
 import br.com.isl.alertasamu.services.UsuarioAppService;
