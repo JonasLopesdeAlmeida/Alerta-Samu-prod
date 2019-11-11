@@ -24,7 +24,7 @@ public class UsuarioApp {
 	private String telefone;
 	private String senha;
 
-
+    
 	@OneToMany(mappedBy = "usuarioapp")
 	private List<Alerta> alertas = new ArrayList<>();
 

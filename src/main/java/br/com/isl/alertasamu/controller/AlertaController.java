@@ -1,6 +1,7 @@
 package br.com.isl.alertasamu.controller;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.isl.alertasamu.dto.AlertaDTO;
 import br.com.isl.alertasamu.model.Alerta;
 import br.com.isl.alertasamu.services.AlertaService;
 
@@ -23,9 +25,10 @@ public class AlertaController {
 		private AlertaService serv;
 		
 		@RequestMapping(method = RequestMethod.GET)
-		public ResponseEntity<List<Alerta>> listar() {
+		public ResponseEntity<List<AlertaDTO>> listar() {
 			List<Alerta> Alerta = serv.buscartodos();
-			return ResponseEntity.ok().body(Alerta);
+			List<AlertaDTO>listDto = Alerta.stream().map(obj -> new AlertaDTO(obj)).collect(Collectors.toList());
+			return ResponseEntity.ok().body(listDto);
 		}
 		
 		@RequestMapping(value = "/{id}", method = RequestMethod.GET)
