@@ -2,6 +2,8 @@ package br.com.isl.alertasamu.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import br.com.isl.alertasamu.dto.AlertaDTO;
+import br.com.isl.alertasamu.dto.UsuarioAppDTO;
 import br.com.isl.alertasamu.model.UsuarioApp;
 import br.com.isl.alertasamu.services.UsuarioAppService;
 
@@ -21,9 +26,10 @@ public class UsuarioAppController {
 	private UsuarioAppService usuario;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List< UsuarioApp>> listar() {
+	public ResponseEntity<List<UsuarioAppDTO>> listar() {
 		List< UsuarioApp>  UsuarioApp = usuario.buscartodos();
-		return ResponseEntity.ok().body( UsuarioApp);
+		List<UsuarioAppDTO>listDto =  UsuarioApp.stream().map(obj -> new UsuarioAppDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
